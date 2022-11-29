@@ -22,5 +22,22 @@ cd exp-run/
 bash exp_phrase_trans.sh
 ```
 ## Citation
+```bib
+@Article{Nguyen2022,
+author={Nguyen, Phuong Minh
+and Le, Tung
+and Nguyen, Huy Tien
+and Tran, Vu
+and Nguyen, Minh Le},
+title={PhraseTransformer: an incorporation of local context information into sequence-to-sequence semantic parsing},
+journal={Applied Intelligence},
+year={2022},
+month={Nov},
+day={29},
+issn={1573-7497},
+doi={10.1007/s10489-022-04246-0},
+url={https://doi.org/10.1007/s10489-022-04246-0}
+}
+```
 ##  License
 MIT-licensed. 
