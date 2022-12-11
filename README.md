@@ -12,9 +12,9 @@
 ```commandline
 conda  create --prefix env_phrase_trans python=3.8 
 conda activate env_phrase_trans/
-pip install -r ./requirements.txt
 
-pip install torch==1.11.0+cu115 torchaudio==0.11.0+cu115 torchvision==0.12.0+cu115 --extra-index-url https://download.pytorch.org/whl/cu115
+# 
+pip install torch==1.10.2+cu113 torchaudio==0.10.2+cu113 torchvision==0.11.3+cu113 --extra-index-url https://download.pytorch.org/whl/cu115
 
 pip install -r requirements.txt 
 ```
