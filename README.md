@@ -10,21 +10,21 @@
 ## Env
 **Prepare data and environments** build virtual env python with name: `env_phrase_trans`  and install all package in the `requirements.txt`:
 ```commandline
-conda  create --prefix env_phrase_trans python=3.8 
+conda  create --prefix env_phrase_trans python=3.6
 conda activate env_phrase_trans/
 
 # 
-pip install torch==1.10.2+cu113 torchaudio==0.10.2+cu113 torchvision==0.11.3+cu113 --extra-index-url https://download.pytorch.org/whl/cu115
+pip install torch==1.10.2+cu113 torchaudio==0.10.2+cu113 torchvision==0.11.3+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
 
 pip install -r requirements.txt 
 ```
-
 ## Runs
 check all runs in `./exp-run/`
 ```
 cd exp-run/
 bash exp_phrase_trans.sh
 ```
+>**Note**: The logic evaluation code (`./src/logical_utils/`) is borrowed from [https://github.com/donglixp/coarse2fine](https://github.com/donglixp/coarse2fine)
 ## Citation
 ```bib
 @Article{Nguyen2022,

@@ -89,13 +89,13 @@ for type_d in "dev" "test"; do
     # -attn_debug -self_attn_debug \
 
     # evaluate acc
-    python ../src/eval_metrics.py \
+    python ../src/em_evaluate.py \
     --path ${PATH_DATA} \
     --pred Y_pred_${IDX_FOLD}.tsv \
     --target Y_${type_d}_${IDX_FOLD}.tsv \
     > ${PATH_DATA}/result_${type_d}_${IDX_FOLD}.log
 
-    python ${CODE_DIR}/../../data-sem/src/evaluate.py --path ${PATH_DATA}/ \
+    python ../src/logic_evaluate.py --path ${PATH_DATA}/ \
     --src X_${type_d}_${IDX_FOLD}.tsv \
     --tgt Y_${type_d}_${IDX_FOLD}.tsv \
     --pred Y_pred_${IDX_FOLD}.tsv \
@@ -107,13 +107,4 @@ for type_d in "dev" "test"; do
     cat ${PATH_DATA}/result_logic_${type_d}_${IDX_FOLD}.log
 done  
 
-
-
-cd ${PATH_DATA}/../src/ && \
-python lf_smatch.py \
--pred ${CUR_DIR}/${PATH_DATA}/Y_pred_${IDX_FOLD}.tsv \
--test ${CUR_DIR}/${PATH_DATA}/Y_test_${IDX_FOLD}.tsv  \
-> ${CUR_DIR}/${PATH_DATA}/result_smatch_core_${IDX_FOLD}.log && \
-cd ${CUR_DIR} && cat ${PATH_DATA}/result_smatch_core_${IDX_FOLD}.log
-
-#bash run_stats.sh
+ 
