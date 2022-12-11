@@ -34,7 +34,7 @@ cp $DIR/$me ${PATH_DATA}/
 
 echo $MSG > ${PATH_DATA}/msg.log
 CUR_DIR=$(pwd)
-CODE_DIR="../opennmt_old/opennmt_py_phraseParallelFlatQK/" # for lstm  using cell state + hidden state 
+CODE_DIR="../libs/opennmt_py_phraseRnn/" # for lstm  using cell state + hidden state 
 cd $CODE_DIR && echo $CODE_DIR > ${PATH_DATA}/code.log && git diff >> ${PATH_DATA}/code.log && git log --oneline >> ${PATH_DATA}/code.log
 cd $CUR_DIR
 

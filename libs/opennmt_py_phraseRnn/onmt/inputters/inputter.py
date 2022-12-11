@@ -9,7 +9,7 @@ from itertools import chain, cycle
 
 import torch
 import torchtext.data
-from torchtext.data import Field, RawField, LabelField
+from torchtext.legacy.data import Field, RawField, LabelField
 from torchtext.vocab import Vocab
 from torchtext.data.utils import RandomShuffler
 
@@ -742,7 +742,7 @@ def batch_iter(data, batch_size, batch_size_fn=None, batch_size_multiple=1):
 
 def _pool(data, batch_size, batch_size_fn, batch_size_multiple,
           sort_key, random_shuffler, pool_factor):
-    for p in torchtext.data.batch(
+    for p in torchtext.legacy.data.batch(
             data, batch_size * pool_factor,
             batch_size_fn=batch_size_fn):
         p_batch = list(batch_iter(
@@ -754,7 +754,7 @@ def _pool(data, batch_size, batch_size_fn, batch_size_multiple,
             yield b
 
 
-class OrderedIterator(torchtext.data.Iterator):
+class OrderedIterator(torchtext.legacy.data.Iterator):
 
     def __init__(self,
                  dataset,
@@ -820,7 +820,7 @@ class OrderedIterator(torchtext.data.Iterator):
                 if self.yield_raw_example:
                     yield minibatch[0]
                 else:
-                    yield torchtext.data.Batch(
+                    yield torchtext.legacy.data.Batch(
                         minibatch,
                         self.dataset,
                         self.device)
