@@ -1,0 +1,68 @@
+diff --git a/onmt/modules/multi_headed_attn.py b/onmt/modules/multi_headed_attn.py
+index eb8edb5..efbebb5 100644
+--- a/onmt/modules/multi_headed_attn.py
++++ b/onmt/modules/multi_headed_attn.py
+@@ -19,8 +19,8 @@ class NgramCombined(nn.Module):
+         if self.n_gram > 1:
+             for i_gram in range(1, self.n_gram):
+                 out = F.pad(x.transpose(-1, -2), [i_gram, 0],
+-                            mode='constant', value=0).transpose(-1, -2)[:,:-i_gram,:] + x
+-        return out
++                            mode='constant', value=0).transpose(-1, -2)[:,:-i_gram,:] + out
++        return out/self.n_gram
+ 
+ 
+ class NgramLSTM(nn.Module):
+diff --git a/onmt/translate/translator.py b/onmt/translate/translator.py
+index 7eb2637..28731fa 100644
+--- a/onmt/translate/translator.py
++++ b/onmt/translate/translator.py
+@@ -463,11 +463,11 @@ class Translator(object):
+                         self.logger.info(output)
+                     else:
+                         os.write(1, output.encode('utf-8'))
+-                    #if not self.verbose:
+-                    #    sent_number = next(counter)
+-                    #viz_attention(self_attn_folder_save, "align-attn",
+-                    #              torch.unsqueeze(torch.unsqueeze(trans.attns[0][:, :len(srcs)], 0), 0),
+-                    #              srcs, trans.pred_sents[0], base_cell=0.25, sent_number=sent_number)
++                    if not self.verbose:
++                        sent_number = next(counter)
++                    viz_attention(self_attn_folder_save, "align-attn",
++                                  torch.unsqueeze(torch.unsqueeze(trans.attns[0][:, :len(srcs)], 0), 0),
++                                  srcs, trans.pred_sents[0], base_cell=0.25, sent_number=sent_number)
+                 if self_attn_debug:
+                     if not self.verbose:
+                         sent_number = next(counter)
+@@ -482,11 +482,12 @@ class Translator(object):
+                     attention_infor = [
+                         ("self-attn-debug", trans.self_attn[:, :, :len(srcs), :len(srcs)],
+                          srcs, srcs, 1.2),
+-                        ("decoding-self-attn-debug", trans.decoding_self_attn[0][:, :, :len(tgt_raw), :len(tgt_raw)],
+-                         ["<s>"] + tgt_raw[:-1], ["<s>"] + tgt_raw[:-1], 1.2),
++                        #("decoding-self-attn-debug", trans.decoding_self_attn[0][:, :, :len(tgt_raw), :len(tgt_raw)],
++                        # ["<s>"] + tgt_raw[:-1], ["<s>"] + tgt_raw[:-1], 1.2),
+                     ]
+                     for (folder_name, self_attn_data, x_stick, y_stick, base_cell) in attention_infor:
+-                        viz_attention(self_attn_folder_save, folder_name, self_attn_data, x_stick, y_stick, base_cell,
++                        if sent_number > 200: 
++                            viz_attention(self_attn_folder_save, folder_name, self_attn_data, x_stick, y_stick, base_cell,
+                                       sent_number=sent_number)
+ 
+                 if align_debug:
+diff --git a/onmt/utils/misc.py b/onmt/utils/misc.py
+index 277c02a..e6f510c 100644
+--- a/onmt/utils/misc.py
++++ b/onmt/utils/misc.py
+@@ -206,7 +206,10 @@ def viz_attention(self_attn_folder_save, folder_name, self_attn_data, x_stick, y
+ 
+     if not os.path.isdir("{}/{}".format(self_attn_folder_save, folder_name)):
+         os.mkdir("{}/{}".format(self_attn_folder_save, folder_name))
+-    plt.savefig('{}/{}/sent-{}.pdf'.format(self_attn_folder_save, folder_name, sent_number),
++    try:
++        plt.savefig('{}/{}/sent-{}.pdf'.format(self_attn_folder_save, folder_name, sent_number),
+                 bbox_inches='tight',
+                 pad_inches=0)
++    except:
++        pass
+     plt.close()
