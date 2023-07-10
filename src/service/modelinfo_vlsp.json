@@ -1,0 +1,38 @@
+[
+    {
+        "translation_info": {
+        "srclang" : "vi",
+        "tgtlang" : "zh",
+        "modelid" : "phrase-transformer"
+        },
+        "model_info": {
+            "data_path": "data/zhvi/phrase-vizh/data-bin",
+            "source-lang": "zh",
+            "target-lang": "vi",
+            "path": "data/zhvi/phrase-vizh/averaged.pt",
+            "task": "translation",
+            "beam": "5",
+            "user-dir": "./src/PhraseTransformer-devPhParallelFlatQK/",
+            "bpe": "subword_nmt",
+            "bpe-codes": "data/zhvi/vocab_vi.txt"
+        }
+    },
+    {
+        "translation_info": {
+           "srclang" : "zh",
+           "tgtlang" : "vi",
+           "modelid" : "phrase-transformer"
+        },
+        "model_info": {
+            "data_path": "data/zhvi/phrase-zhvi/data-bin",
+            "source-lang": "zh",
+            "target-lang": "vi",
+            "path": "data/zhvi/phrase-zhvi/averaged.pt",
+            "task": "translation",
+            "beam": "5",
+            "user-dir": "./src/PhraseTransformer-devPhParallelFlatQK/",
+            "bpe": "subword_nmt",
+            "bpe-codes": "data/zhvi/vocab_zh.txt"
+        }
+    }
+]

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Translation</title>
+    <style>
+      form {
+        width: auto;
+      }
+
+      div {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: inline-block;
+        width: 240px;
+        text-align: left;
+        padding-right: 10px;
+      }
+
+      button, input {
+        float: left;
+      }  
+        .message {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f3f3f3
+        }
+        nav a {
+            color: #d64161;
+            font-size: 3em;
+            margin-left: 50px;
+            text-decoration: none;
+        }
+ 
+    </style>
+  </head>
+
+  <body>
+    <h1>Translation system</h1>
+    <p>
+    <form method="post" action="{{ url_for('translate_home') }}">
+      <label for="question">Choose model:</label><br/>
+      <select name="translation_id" id="translation_id" >
+        {% for translation_id in translation_ids %}
+        <option value={{translation_id}} {% if translation_id==translation_id_cur %} selected="selected"{% endif %}>  {{translation_id}}  </option>
+        {% endfor %}
+      </select><br/>
+      <div>
+        <label for="question">Type your input:</label><br/>
+
+        <textarea name="question"
+                    id="question"
+                  placeholder="what is the highest mountain in the world?"
+                  rows="3"
+                  cols="60" autofocus
+                  > {{question}} </textarea>
+        <br>
+      </div> 
+      <div>
+        <button>Send</button>
+      </div>
+    </form>
+    <br/>
+    </p>
+    <hr/>
+    <p>Input: {{question}}</p>
+    <p>Result:<br/> <text style="color:blue;">  {{answer}}</text> </p>
+    <p>Detail-results:</p>
+    <textarea   rows="30" cols="150"  readonly disabled>{{detail_ans}}</textarea>
+  </body>
+</html>
