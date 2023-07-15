@@ -9,7 +9,7 @@ MAX_LEN_B=200
 
 source $PATH_DATA/setting.sh 
 
-python src/avg_last_checkpoint.py --inputs ${PATH_DATA} --num-epoch-checkpoints 5 --output ${PATH_DATA}/averaged.pt
+python $USER_DIR/avg_last_checkpoint.py --inputs ${PATH_DATA} --num-epoch-checkpoints 5 --output ${PATH_DATA}/averaged.pt
 
 for TYPE_F in "test"  "val"  # "train" 
 do 
